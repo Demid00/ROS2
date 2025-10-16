@@ -1,0 +1,159 @@
+===
+Название: man
+Описание: man — это пейджер справочных страниц системы. Каждый параметр страница,
+       переданный  man,  обычно  является  названием  программы,  утилиты  или
+       функции.  По  каждому  из  этих  параметров  выполняется  поиск и вывод
+       связанной с ним справочной страницы.
+Синтаксис: man [параметры man] [[раздел] страница ...] ...
+       man -k [параметры apropos] регвыр ...
+       man -K [параметры man] [раздел] термин ...
+       man -f [whatis параметры] страница ...
+       man -l [параметры man] файл ...
+       man -w|-W [параметры man] страница ...
+Пример: man ls
+           Показать справочную страницу для параметра (программы) ls.
+
+       man man.7
+           Показать  справочную  страницу  пакета  макросов  man  из раздела 7
+           (аналог команды "man 7 man").
+
+       man 'man(7)'
+           Показать справочную страницу  пакета  макросов  man  из  раздела  7
+           (аналог  команды "man 7 man"; она удобнее для копирования и вставки
+           перекрёстных ссылок в  справочные  страницы;  заметим,  что  скобки
+           нужно защищать кавычками из-за оболочки).
+Примечание: расширенное описание, нежели через -h, умеет смотреть только скаченные через apt пакет
+===
+Название: ncdu
+Описание: ncdu (NCurses Disk Usage) is a curses-based version of the well-known
+       'du', and provides a fast way to see what directories are using your
+       disk space.
+Синтаксис: ncdu [options] dir
+Пример: ncdu ~/Downloads/          # Проанализировать папку Downloads
+	ncdu /var/log/             # Проанализировать логи (может потребовать sudo)
+	ncdu -x /                  # Анализ корневой файловой системы, не переходя на другие устройства
+Примечание: Более удобная альтернатива du, позволяет интерактивно просматривать и удалять файлы
+===
+Название: rsync - a fast, versatile, remote (and local) file-copying tool
+Описание: Rsync  is  a  fast and extraordinarily versatile file copying tool.  It
+       can copy locally, to/from  another  host  over  any  remote  shell,  or
+       to/from  a  remote  rsync  daemon.  It offers a large number of options
+       that control every aspect of its  behavior  and  permit  very  flexible
+       specification  of  the set of files to be copied.
+Синтаксис: Local:
+           rsync [OPTION...] SRC... [DEST]
+
+       Access via remote shell:
+           Pull:
+               rsync [OPTION...] [USER@]HOST:SRC... [DEST]
+           Push:
+               rsync [OPTION...] SRC... [USER@]HOST:DEST
+
+       Access via rsync daemon:
+           Pull:
+               rsync [OPTION...] [USER@]HOST::SRC... [DEST]
+               rsync [OPTION...] rsync://[USER@]HOST[:PORT]/SRC... [DEST]
+           Push:
+               rsync [OPTION...] SRC... [USER@]HOST::DEST
+               rsync [OPTION...] SRC... rsync://[USER@]HOST[:PORT]/DEST
+Пример: rsync -av ~/Documents/ ~/Documents_backup/  # Резервное копирование
+	rsync -n -av ~/Downloads/ ~/Downloads_test/ # Тестовый прогон (без реального копирования)
+Примечание: -a сохраняет атрибуты файлов, -v показывает прогресс
+===
+Название: journalctl - Query the systemd journal
+Описание: journalctl may be used to query the contents of the systemd(1) journal
+       as written by systemd-journald.service(8).
+
+       If called without parameters, it will show the full contents of the
+       journal, starting with the oldest entry collected.
+Синтаксис: journalctl [OPTIONS...] [MATCHES...]
+Пример: journalctl -u nginx.service --since "1 hour ago"
+	journalctl --since "1 hour ago"          # Логи за последний час
+	journalctl -p err                        # Только ошибки
+	journalctl -u systemd-logind             # Логи конкретного сервиса
+Примечание: -u фильтрует по сервису, --since задает временной диапазон
+===
+Название: htop - interactive process viewer
+Описание: htop is a cross-platform ncurses-based process viewer.
+
+       It  is similar to top, but allows you to scroll vertically and horizon‐
+       tally, and interact using a pointing device (mouse).  You  can  observe
+       all  processes running on the system, along with their command line ar‐
+       guments, as well as view them in a tree format,  select  multiple  pro‐
+       cesses and acting on them all at once.
+Синтаксис: htop [-dCFhpustvH]
+Пример: htop
+Примечание: Улучшенная версия команды top с цветным интерфейсом
+===
+Название: tree - list contents of directories in a tree-like format.
+Описание: Tree is a recursive directory listing program that produces a depth in‐
+       dented  listing  of  files,  which  is  colorized  ala dircolors if the
+       LS_COLORS environment variable is set and output is to  tty.
+Синтаксис: tree  [-acdfghilnpqrstuvxACDFJQNSUX]  [-L level [-R]] [-H baseHREF] [-T
+       title]  [-o  filename]  [-P   pattern]   [-I   pattern]   [--gitignore]
+       [--matchdirs]   [--metafirst]  [--ignore-case]  [--nolinks]  [--inodes]
+       [--device] [--sort[=]name] [--dirsfirst] [--filesfirst] [--filelimit #]
+       [--si]  [--du]  [--prune]  [--timefmt[=]format]  [--fromfile]  [--info]
+       [--noreport] [--version] [--help] [--] [directory ...]
+Пример: tree -L 2 /home/user
+Примечание: -L ограничивает глубину отображения
+===
+Название: ag - The Silver Searcher. Like ack, but faster.
+Описание: Recursively search for PATTERN in PATH. Like grep or ack, but faster.
+Синтаксис: ag [options] pattern [path ...]
+Пример: ag "hello" ~/Documents/    # Найти "hello" в файлах Documents
+	ag -i "function" ~/        # Поиск без учета регистра
+	ag --python "import" ~/    # Искать только в Python файлах
+Примечание: Игнорирует файлы из .gitignore, работает значительно быстрее grep
+===
+Название: tmux — terminal multiplexer
+Описание: tmux is a terminal multiplexer: it enables a number of terminals to be
+     created, accessed, and controlled from a single screen.  tmux may be de‐
+     tached from a screen and continue running in the background, then later
+     reattached.
+Синтаксис: tmux [-2CDluvV] [-c shell-command] [-f file] [-L socket-name]
+          [-S socket-path] [-T features] [command [flags]]
+Пример: tmux new -s test_session   # Создать новую сессию
+	# Внутри tmux:
+	# Ctrl+B затем C - создать новое окно
+	# Ctrl+B затем N - следующее окно  
+	# Ctrl+B затем D - отключиться от сессии
+	tmux attach -t test_session # Вернуться в сессию
+Примечание: Позволяет сохранять сессии после разрыва соединения
+===
+Название: curl - transfer a URL
+Описание: curl  is  a tool for transferring data from or to a server. It supports
+       these protocols: DICT, FILE, FTP, FTPS, GOPHER, GOPHERS,  HTTP,  HTTPS,
+       IMAP,  IMAPS,  LDAP,  LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP,
+       SFTP, SMB, SMBS, SMTP, SMTPS, TELNET or TFTP. The command  is  designed
+       to work without user interaction
+Синтаксис: curl [options / URLs]
+Пример: curl -O https://example.com/file.zip
+	curl -I https://httpbin.org/json         # Только заголовки (безопасно)
+	curl -o test.txt https://httpbin.org/json # Скачать в файл
+	curl -s https://httpbin.org/ip | jq .    # Парсинг JSON (если установлен jq)
+Примечание: -O сохраняет файл с оригинальным именем
+===
+Название: find - search for files in a directory hierarchy
+Описание: This manual page documents the GNU version of find.  GNU find  searches
+       the  directory  tree  rooted at each given starting-point by evaluating
+       the given expression from left to right,  according  to  the  rules  of
+       precedence  (see  section  OPERATORS),  until the outcome is known (the
+       left hand side is false for and operations,  true  for  or),  at  which
+       point  find  moves  on  to the next file name.  If no starting-point is
+       specified, `.' is assumed.
+Синтаксис: find  [-H]  [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] [ex‐
+       pression]
+Пример: find /var/log -name "*.log" -mtime +7
+	find ~/ -name "*.txt" | head -10         # Найти 10 txt файлов
+	find ~/ -type f -size +10M               # Файлы больше 10MB
+	find ~/ -mtime -1                        # Файлы измененные за последние 24 часа
+Примечание: -mtime +7 ищет файлы измененные более 7 дней назад
+===
+Название: ssh-keygen
+Описание:  ssh-keygen generates, manages and converts authentication keys for
+     ssh(1).  ssh-keygen can create keys for use by SSH protocol version 2.
+Синтаксис: ssh-keygen [опции]
+Пример: ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+Примечание: -t задает тип ключа, -b длину ключа
+===
